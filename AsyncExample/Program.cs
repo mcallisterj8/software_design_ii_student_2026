@@ -1,0 +1,2 @@
+﻿
+await HostingService.HostDinnerAsync();
