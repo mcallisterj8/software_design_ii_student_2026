@@ -9,7 +9,7 @@ public class SeedingService {
         _context = context;
     }
 
-    public void CreateInstructor(string firstName, string lastName, DateTime joiningDate, int deptId) {
+    private void CreateInstructor(string firstName, string lastName, DateTime joiningDate, int deptId) {
         var instructor = new Instructor {
             FirstName = firstName,
             LastName = lastName,
@@ -19,7 +19,7 @@ public class SeedingService {
         _context.Instructors.Add(instructor);
     }
 
-    public void CreateStudent(string firstName, string lastName, DateTime joiningDate) {
+    private void CreateStudent(string firstName, string lastName, DateTime joiningDate) {
         var student = new Student {
             FirstName = firstName,
             LastName = lastName,
@@ -28,14 +28,14 @@ public class SeedingService {
         _context.Students.Add(student);
     }
 
-    public void CreateDepartment(string deptName) {
+    private void CreateDepartment(string deptName) {
         var department = new Department {
             Name = deptName
         };
         _context.Departments.Add(department);
     }
 
-    public void CreateCourse(string name, int instructorId, int departmentId) {
+    private void CreateCourse(string name, int instructorId, int departmentId) {
         var course = new Course {
             Name = name,
             InstructorId = instructorId,
@@ -44,7 +44,7 @@ public class SeedingService {
         _context.Courses.Add(course);
     }
 
-    public void AddStudentToCourse(int studentId, int courseId) {
+    private void AddStudentToCourse(int studentId, int courseId) {
         var student = _context.Students.Find(studentId);
         var course = _context.Courses.Find(courseId);
         if (student != null && course != null) {

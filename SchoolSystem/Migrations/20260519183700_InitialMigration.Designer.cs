@@ -11,7 +11,7 @@ using SchoolSystem.Data;
 namespace SchoolSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260514194130_InitialMigration")]
+    [Migration("20260519183700_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
