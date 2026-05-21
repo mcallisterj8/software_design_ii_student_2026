@@ -33,22 +33,24 @@ _basicQueryService = _serviceProvider.GetRequiredService<BasicQueryService>();
 await _seedingService.SeedDatabase();
 
 // Get all instructor names
-List<string> instructorNames = await _basicQueryService.GetAllInstructorNamesAsync();
+// List<string> instructorNames = await _basicQueryService.GetAllInstructorNamesAsync();
 
-foreach (string name in instructorNames) {
-    Console.WriteLine(name);
-}
+// foreach (string name in instructorNames) {
+//     Console.WriteLine(name);
+// }
 
 Console.WriteLine("======================== GetInstructorByIdAsync ===================");
 Instructor? person = await _basicQueryService.GetInstructorByIdAsync(1);
+// Console.WriteLine($"{person.FirstName} {person.LastName}");
+// Below line will throw exception without Include() done in the GetInstructorByIdAsync() method
 Console.WriteLine($"{person.FirstName} {person.LastName} works in {person.Department.Name}");
 
-Console.WriteLine("======================== Depts with more than one course ===================");
-List<Department> depts = await _basicQueryService.GetDepartmentsWithMoreThanOneCourseAsync();
+// Console.WriteLine("======================== Depts with more than one course ===================");
+// List<Department> depts = await _basicQueryService.GetDepartmentsWithMoreThanOneCourseAsync();
 
-foreach (var dept in depts) {
-    Console.WriteLine(dept.Name);
-}
+// foreach (var dept in depts) {
+//     Console.WriteLine(dept.Name);
+// }
 
 
 

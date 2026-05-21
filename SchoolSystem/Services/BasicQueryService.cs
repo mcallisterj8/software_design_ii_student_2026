@@ -23,7 +23,11 @@ public class BasicQueryService {
     }
 
     public async Task<Instructor?> GetInstructorByIdAsync(int instructorId) {
-        return await _context.Instructors.FindAsync(instructorId);
+        // return await _context.Instructors.FindAsync(instructorId);
+        return await _context.Instructors
+            .Include(instr => instr.Department)
+            .Include(instr => instr.Courses)
+            .SingleOrDefaultAsync(instr => instr.Id == instructorId);
     }
 
     public async Task<List<Department>> GetDepartmentsWithMoreThanOneCourseAsync() {
