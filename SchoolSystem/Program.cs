@@ -53,6 +53,10 @@ Console.WriteLine($"{person.FirstName} {person.LastName} works in {person.Depart
 //     Console.WriteLine(dept.Name);
 // }
 
+Console.WriteLine("======================== GetDepartmentWithMostCoursesAsync ===================");
+
+string deptWithMostCourses = await _basicQueryService.GetDepartmentWithMostCoursesAsync();
+Console.WriteLine($"Dept with most courses: {deptWithMostCourses}");
 
 
 

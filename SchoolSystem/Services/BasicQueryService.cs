@@ -36,4 +36,44 @@ public class BasicQueryService {
             .ToListAsync();
     }
 
+    public async Task<string?> GetDepartmentWithMostCoursesAsync() {
+        return await _context.Departments
+            .OrderByDescending(dept => dept.Courses.Count)
+            .Select(dept => dept.Name)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<List<Student>> GetStudentsEnrolledInMoreThanFiveCoursesAsync() {
+        return await _context.Students
+            .Where(student => student.Courses.Count > 5)
+            .ToListAsync();
+    }
+
+    public async Task<List<Student>> GetStudentsWithNoCoursesAsync() {
+        return await _context.Students
+            // .Where(student => student.Courses.Count == 0)
+            .Where(student => !student.Courses.Any())
+            .ToListAsync();
+    }
+
+    public async Task<Instructor?> GetInstructorWithMostCoursesAsync() {
+        return await _context.Instructors
+            .OrderByDescending(instr => instr.Courses.Count)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<List<List<Course>>> GetAllStudentCoursesAsync() {
+        return await _context.Students
+            .Include(stud => stud.Courses)
+            .Select(stud => stud.Courses.ToList())
+            .ToListAsync();
+    }
+
+    public async Task<List<Course>> GetAllStudentCoursesFlattenedAsync() {
+        return await _context.Students
+            .Include(stud => stud.Courses)
+            .SelectMany(stud => stud.Courses)
+            .ToListAsync();
+    }
+
 }
