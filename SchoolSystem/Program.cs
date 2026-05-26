@@ -3,6 +3,7 @@ using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
 using SchoolSystem.Data;
 using SchoolSystem.Models;
+using SchoolSystem.Models.Dtos;
 using SchoolSystem.Services;
 
 ServiceProvider _serviceProvider;
@@ -45,6 +46,9 @@ Instructor? person = await _basicQueryService.GetInstructorByIdAsync(1);
 // Below line will throw exception without Include() done in the GetInstructorByIdAsync() method
 Console.WriteLine($"{person.FirstName} {person.LastName} works in {person.Department.Name}");
 
+InstructorDto? personDto = await _basicQueryService.GetInstructorDtoByIdAsync(1);
+Console.WriteLine($"Entire person\n{JsonSerializer.Serialize(personDto)}");
+
 
 // Console.WriteLine("======================== Depts with more than one course ===================");
 // List<Department> depts = await _basicQueryService.GetDepartmentsWithMoreThanOneCourseAsync();
@@ -53,10 +57,10 @@ Console.WriteLine($"{person.FirstName} {person.LastName} works in {person.Depart
 //     Console.WriteLine(dept.Name);
 // }
 
-Console.WriteLine("======================== GetDepartmentWithMostCoursesAsync ===================");
+// Console.WriteLine("======================== GetDepartmentWithMostCoursesAsync ===================");
 
-string deptWithMostCourses = await _basicQueryService.GetDepartmentWithMostCoursesAsync();
-Console.WriteLine($"Dept with most courses: {deptWithMostCourses}");
+// string deptWithMostCourses = await _basicQueryService.GetDepartmentWithMostCoursesAsync();
+// Console.WriteLine($"Dept with most courses: {deptWithMostCourses}");
 
 
 

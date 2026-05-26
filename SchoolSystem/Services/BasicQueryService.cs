@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
 using SchoolSystem.Data;
 using SchoolSystem.Models;
+using SchoolSystem.Models.Dtos;
 
 namespace SchoolSystem.Services;
 
@@ -28,6 +29,19 @@ public class BasicQueryService {
             .Include(instr => instr.Department)
             .Include(instr => instr.Courses)
             .SingleOrDefaultAsync(instr => instr.Id == instructorId);
+    }
+
+    public async Task<InstructorDto?> GetInstructorDtoByIdAsync(int instructorId) {
+        // return await _context.Instructors.FindAsync(instructorId);
+        return await _context.Instructors
+            .Where(instr => instr.Id == instructorId)
+            .Include(instr => instr.Department)
+            .Include(instr => instr.Courses)
+            .Select(instr => new InstructorDto {
+                LastName = instr.LastName,
+                DepartmentName = instr.Department.Name
+            })
+            .SingleOrDefaultAsync();
     }
 
     public async Task<List<Department>> GetDepartmentsWithMoreThanOneCourseAsync() {
