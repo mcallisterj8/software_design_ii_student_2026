@@ -45,6 +45,7 @@ Instructor? person = await _basicQueryService.GetInstructorByIdAsync(1);
 // Below line will throw exception without Include() done in the GetInstructorByIdAsync() method
 Console.WriteLine($"{person.FirstName} {person.LastName} works in {person.Department.Name}");
 
+
 // Console.WriteLine("======================== Depts with more than one course ===================");
 // List<Department> depts = await _basicQueryService.GetDepartmentsWithMoreThanOneCourseAsync();
 
