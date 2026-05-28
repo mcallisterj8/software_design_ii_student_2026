@@ -1,3 +1,5 @@
+using SchoolSystemCycling.Models.Entities;
+
 namespace SchoolSystemCycling.Models.Dtos;
 
 public class InstructorDto {
