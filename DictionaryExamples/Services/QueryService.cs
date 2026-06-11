@@ -11,7 +11,6 @@ public class QueryService {
         _context = context;
     }
 
-
     public async Task<Dictionary<string, List<Track>>> GetTrackNamesGroupedByGenreAsync() {
         return await _context.Track
             .GroupBy(t => t.Genre.Name) // Group tracks by genre name

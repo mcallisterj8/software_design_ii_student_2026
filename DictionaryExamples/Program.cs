@@ -7,13 +7,18 @@ ServiceProvider _serviceProvider;
 QueryService _queryService;
 
 // Create service collection
-var services = new ServiceCollection();
+var services = new ServiceCollection(); // Shopping cart
 
+/* Add things to shopping cart. */
 services.AddScoped<QueryService>();
 services.AddDbContext<ApplicationDbContext>();
 
+
+/* Once done adding things, now BUILD things in shopping cart. */
 // Build services
 _serviceProvider = services.BuildServiceProvider();
+
+
 
 // Get QueryService from DI container
 _queryService = _serviceProvider.GetRequiredService<QueryService>();
@@ -28,11 +33,11 @@ JsonSerializerOptions options = new JsonSerializerOptions {
 
 
 // Tracks grouped by genre
-// Console.WriteLine("========== TRACKS GROUPED 1) BY GENRE ==========\n");
+Console.WriteLine("========== TRACKS GROUPED 1) BY GENRE ==========\n");
 
-// var tracksGroupedByGenre = await _queryService.GetTrackNamesGroupedByGenreAsync();
+var tracksGroupedByGenre = await _queryService.GetTrackNamesGroupedByGenreAsync();
 
-// Console.WriteLine(JsonSerializer.Serialize(tracksGroupedByGenre, options));
+Console.WriteLine(JsonSerializer.Serialize(tracksGroupedByGenre, options));
 
 
 // Customers grouped by city/state
@@ -43,41 +48,41 @@ var customersByCityState = await _queryService.GetCustomersByCityState();
 Console.WriteLine(JsonSerializer.Serialize(customersByCityState, options));
 
 
-// // Employees grouped by title
-// Console.WriteLine("\n========== 3) EMPLOYEES GROUPED BY TITLE ==========\n");
+// Employees grouped by title
+Console.WriteLine("\n========== 3) EMPLOYEES GROUPED BY TITLE ==========\n");
 
-// var employeesByTitle = await _queryService.GetEmployeesByTitleAsync();
+var employeesByTitle = await _queryService.GetEmployeesByTitleAsync();
 
-// Console.WriteLine(JsonSerializer.Serialize(employeesByTitle, options));
+Console.WriteLine(JsonSerializer.Serialize(employeesByTitle, options));
 
 
 // Tracks grouped by media type
-// Console.WriteLine("\n========== 4) TRACKS GROUPED BY MEDIA TYPE ==========\n");
+Console.WriteLine("\n========== 4) TRACKS GROUPED BY MEDIA TYPE ==========\n");
 
-// var tracksByMediaType = await _queryService.GetTracksByMediaTypeAsync();
+var tracksByMediaType = await _queryService.GetTracksByMediaTypeAsync();
 
-// Console.WriteLine(JsonSerializer.Serialize(tracksByMediaType, options));
-
-
-// // Track names grouped by genre
-// Console.WriteLine("\n========== 5) TRACK NAMES GROUPED BY GENRE ==========\n");
-
-// var trackNamesByGenre = await _queryService.GetTrackNamesByGenreAsync();
-
-// Console.WriteLine(JsonSerializer.Serialize(trackNamesByGenre, options));
+Console.WriteLine(JsonSerializer.Serialize(tracksByMediaType, options));
 
 
-// // Average track length in seconds by genre
-// Console.WriteLine("\n========== 6) AVERAGE TRACK LENGTH SECONDS BY GENRE ==========\n");
+// Track names grouped by genre
+Console.WriteLine("\n========== 5) TRACK NAMES GROUPED BY GENRE ==========\n");
 
-// var averageTrackLengthByGenre = await _queryService.GetAverageTrackLengthSecondsByGenreAsync();
+var trackNamesByGenre = await _queryService.GetTrackNamesByGenreAsync();
 
-// Console.WriteLine(JsonSerializer.Serialize(averageTrackLengthByGenre, options));
+Console.WriteLine(JsonSerializer.Serialize(trackNamesByGenre, options));
 
 
-// // Track count by media type
-// Console.WriteLine("\n========== 7) TRACK COUNT BY MEDIA TYPE ==========\n");
+// Average track length in seconds by genre
+Console.WriteLine("\n========== 6) AVERAGE TRACK LENGTH SECONDS BY GENRE ==========\n");
 
-// var trackCountByMediaType = await _queryService.GetTrackCountByMediaTypeAsync();
+var averageTrackLengthByGenre = await _queryService.GetAverageTrackLengthSecondsByGenreAsync();
 
-// Console.WriteLine(JsonSerializer.Serialize(trackCountByMediaType, options));
+Console.WriteLine(JsonSerializer.Serialize(averageTrackLengthByGenre, options));
+
+
+// Track count by media type
+Console.WriteLine("\n========== 7) TRACK COUNT BY MEDIA TYPE ==========\n");
+
+var trackCountByMediaType = await _queryService.GetTrackCountByMediaTypeAsync();
+
+Console.WriteLine(JsonSerializer.Serialize(trackCountByMediaType, options));
