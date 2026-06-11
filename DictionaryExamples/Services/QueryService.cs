@@ -58,10 +58,20 @@ public class QueryService {
     public async Task<Dictionary<string, List<Employee>>> GetEmployeesByTitleAsync() {
         return await _context.Employee
             .Where(employee => null != employee.Title)
-            .GroupBy(employee => employee.Title!)
+            .GroupBy(employee => employee.Title)
             .ToDictionaryAsync(
                 group => group.Key,
                 group => group.ToList()
+            );
+    }
+
+    public async Task<Dictionary<string, List<string>>> GetEmployeeNamesByTitleAsync() {
+        return await _context.Employee
+            .Where(employee => null != employee.Title)
+            .GroupBy(employee => employee.Title)
+            .ToDictionaryAsync(
+                group => group.Key,
+                group => group.Select(e => e.LastName).ToList()
             );
     }
 
