@@ -23,11 +23,12 @@ public class QueryService {
 
     public async Task<Dictionary<string, List<Customer>>> GetCustomersByCityState() {
         /*
-            1) The below approach will fail because of the attempt at string formatting/interpolation with
-            the null-coalesnence.
+            1) The below approach fails because string interpolation becomes string.Format(),
+            and EF Core cannot translate that string.Format() call inside the GroupBy().
+            The null-coalescing operator itself is not the main problem.
         */
         // Dictionary<string, List<Customer>> customersByCityState = await _context.Customer
-        //     .GroupBy(customer => $"{customer.City}, {customer.State ?? "NO STATE"}")
+        //     .GroupBy(customer => $"{customer.City}, {customer.State ?? "NO STATE"}") // Value is a format string with the string interpolation operator ($).
         //     .ToDictionaryAsync(
         //         group => group.Key,
         //         group => group.ToList()
@@ -35,13 +36,14 @@ public class QueryService {
 
 
         /*
-            2) This approach avoids the null-coalesnence issue in the query by getting
-                GroupBy() results done before the query is built.
+            2) This approach groups by separate database-friendly values first.
+            EF Core can translate City and State ?? "NO STATE" into SQL.
+            After ToListAsync(), we build the formatted string key in regular C#.
         */
         var groupedCustomers = await _context.Customer
             .GroupBy(customer => new {
                 City = customer.City,
-                State = customer.State ?? "NO STATE"
+                State = customer.State ?? "NO STATE" // Not using a format string.
             })
             .ToListAsync();
 
