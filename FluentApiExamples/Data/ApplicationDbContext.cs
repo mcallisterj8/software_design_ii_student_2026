@@ -20,9 +20,9 @@ public class ApplicationDbContext : DbContext {
             in the PostTag model to have EF Core setup database as intended.
         */
         // Make sure to comment out initially & show the error this causes.
-        modelBuilder.Entity<Post>()
-            .HasMany(p => p.Tags) // Navigation property from Post to list of Tags
-            .WithMany(t => t.Posts) // Navigation property from Tag to list of Posts
+        modelBuilder.Entity<Tag>()
+            .HasMany(t => t.Posts) // Navigation property from Post to list of Tags
+            .WithMany(p => p.Tags) // Navigation property from Tag to list of Posts
             .UsingEntity<PostTag>(); // Junction table used for many-to-many is PostTag
 
 
